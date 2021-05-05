@@ -5,19 +5,7 @@
 //  Created by Razvan Lung on 15/02/2019.
 //
 
-// ios: PermissionGroupCalendar
-// Info.plist: NSCalendarsUsageDescription
-// dart: PermissionGroup.calendar
-#ifndef PERMISSION_EVENTS
-    #define PERMISSION_EVENTS 1
-#endif
-
-// ios: PermissionGroupReminders
-// Info.plist: NSRemindersUsageDescription
-// dart: PermissionGroup.reminders
-#ifndef PERMISSION_REMINDERS
-    #define PERMISSION_REMINDERS 1
-#endif
+ 
 
 // ios: PermissionGroupContacts
 // Info.plist: NSContactsUsageDescription
@@ -38,13 +26,6 @@
 // dart: PermissionGroup.microphone
 #ifndef PERMISSION_MICROPHONE
     #define PERMISSION_MICROPHONE 1
-#endif
-
-// ios: PermissionGroupSpeech
-// Info.plist: NSSpeechRecognitionUsageDescription
-// dart: PermissionGroup.speech
-#ifndef PERMISSION_SPEECH_RECOGNIZER
-    #define PERMISSION_SPEECH_RECOGNIZER 1
 #endif
 
 // ios: PermissionGroupPhotos
@@ -79,20 +60,6 @@
 // dart: PermissionGroup.mediaLibrary
 #ifndef PERMISSION_MEDIA_LIBRARY
     #define PERMISSION_MEDIA_LIBRARY 1
-#endif
-
-// ios: PermissionGroupSensors
-// Info.plist: NSMotionUsageDescription
-// dart: PermissionGroup.sensors
-#ifndef PERMISSION_SENSORS
-    #define PERMISSION_SENSORS 1
-#endif
-
-// ios: PermissionGroupBluetooth
-// Info.plist: [NSBluetoothAlwaysUsageDescription, NSBluetoothPeripheralUsageDescription]
-// dart: PermissionGroup.bluetooth
-#ifndef PERMISSION_BLUETOOTH
-    #define PERMISSION_BLUETOOTH 1
 #endif
 
 typedef NS_ENUM(int, PermissionGroup) {
