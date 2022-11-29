@@ -6,6 +6,9 @@ part of permission_handler_platform_interface;
 class PermissionWithService extends Permission {
   const PermissionWithService._(int value) : super._(value);
 
+  /// Creates a [PermissionWithService] instance.
+  ///
+  /// This constructor is marked public for testing purposes only.
   @visibleForTesting
   const PermissionWithService.private(int value) : super._(value);
 }
@@ -14,6 +17,8 @@ class PermissionWithService extends Permission {
 @immutable
 class Permission {
   const Permission._(this.value);
+
+  /// Creates a [Permission] using the supplied integer value.
   factory Permission.byValue(int value) => values[value];
 
   /// Integer representation of the [Permission].
@@ -39,6 +44,11 @@ class Permission {
   ///   When running on Android < Q: Fine and Coarse Location
   ///   When running on Android Q and above: Background Location Permission
   /// iOS: CoreLocation - Always
+  ///   When requesting this permission the user needs to grant permission
+  ///   for the `locationWhenInUse` permission first, clicking on
+  ///   the `Àllow While Using App` option on the popup.
+  ///   After allowing the permission the user can request the `locationAlways`
+  ///   permission and can click on the `Change To Always Allow` option.
   static const locationAlways = PermissionWithService._(4);
 
   /// Android: Fine and Coarse Location
@@ -57,7 +67,8 @@ class Permission {
   /// iOS: Nothing
   static const phone = PermissionWithService._(8);
 
-  /// Android: Nothing
+  /// When running on Android T and above: Read image files from external storage
+  /// When running on Android < T: Nothing
   /// iOS: Photos
   /// iOS 14+ read & write access level
   static const photos = Permission._(9);
@@ -133,6 +144,58 @@ class Permission {
   ///iOS: Nothing
   static const systemAlertWindow = Permission._(23);
 
+  ///Android: Allows an app to request installing packages.
+  ///iOS: Nothing
+  static const requestInstallPackages = Permission._(24);
+
+  ///Android: Nothing
+  ///iOS: Allows user to accept that your app collects data about end users and
+  ///shares it with other companies for purposes of tracking across apps and
+  ///websites.
+  static const appTrackingTransparency = Permission._(25);
+
+  ///Android: Nothing
+  ///iOS: Notifications that override your ringer
+  static const criticalAlerts = Permission._(26);
+
+  ///Android: Allows the user to access the notification policy of the phone.
+  /// EX: Allows app to turn on and off do-not-disturb.
+  ///iOS: Nothing
+  static const accessNotificationPolicy = Permission._(27);
+
+  ///Android: Allows the user to look for Bluetooth devices
+  ///(e.g. BLE peripherals).
+  ///iOS: Nothing
+  static const bluetoothScan = Permission._(28);
+
+  ///Android: Allows the user to make this device discoverable to other
+  ///Bluetooth devices.
+  ///iOS: Nothing
+  static const bluetoothAdvertise = Permission._(29);
+
+  ///Android: Allows the user to connect with already paired Bluetooth devices.
+  ///iOS: Nothing
+  static const bluetoothConnect = Permission._(30);
+
+  ///Android: Allows the user to connect to nearby devices via Wi-Fi
+  ///iOS: Nothing
+  static const nearbyWifiDevices = Permission._(31);
+
+  /// When running on Android T and above: Read video files from external storage
+  /// When running on Android < T: Nothing
+  /// iOS: Nothing
+  static const videos = Permission._(32);
+
+  /// When running on Android T and above: Read audio files from external storage
+  /// When running on Android < T: Nothing
+  /// iOS: Nothing
+  static const audio = Permission._(33);
+
+  /// When running on Android S and above: Allows exact alarm functionality
+  /// When running on Android < S: Nothing
+  ///iOS: Nothing
+  static const scheduleExactAlarm = Permission._(34);
+
   /// Returns a list of all possible [PermissionGroup] values.
   static const List<Permission> values = <Permission>[
     calendar,
@@ -158,7 +221,18 @@ class Permission {
     unknown,
     bluetooth,
     manageExternalStorage,
-    systemAlertWindow
+    systemAlertWindow,
+    requestInstallPackages,
+    appTrackingTransparency,
+    criticalAlerts,
+    accessNotificationPolicy,
+    bluetoothScan,
+    bluetoothAdvertise,
+    bluetoothConnect,
+    nearbyWifiDevices,
+    videos,
+    audio,
+    scheduleExactAlarm
   ];
 
   static const List<String> _names = <String>[
@@ -185,7 +259,18 @@ class Permission {
     'unknown',
     'bluetooth',
     'manageExternalStorage',
-    'systemAlertWindow'
+    'systemAlertWindow',
+    'requestInstallPackages',
+    'appTrackingTransparency',
+    'criticalAlerts',
+    'accessNotificationPolicy',
+    'bluetoothScan',
+    'bluetoothAdvertise',
+    'bluetoothConnect',
+    'nearbyWifiDevices',
+    'videos',
+    'audio',
+    'scheduleExactAlarm'
   ];
 
   @override

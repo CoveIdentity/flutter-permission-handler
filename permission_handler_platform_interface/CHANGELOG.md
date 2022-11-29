@@ -1,3 +1,44 @@
+## 3.9.0
+
+* Added support for the new Android 13 permissions: SCHEDULE_EXACT_ALARM, READ_MEDIA_IMAGES, READ_MEDIA_VIDEO and READ_MEDIA_AUDIO
+
+## 3.8.0
+
+* Added support for the new Android 13 permission: NEARBY_WIFI_DEVICES.
+
+## 3.7.1
+
+* Updated the documentation on permissions in `permission_status.dart`
+
+## 3.7.0
+
+* Added support for the new Android 12 Bluetooth permissions: BLUETOOTH_SCAN, BLUETOOTH_ADVERTISE and BLUETOOTH_CONNECT.
+
+## 3.6.2
+
+* Updated the MethodChannelMock due to breaking changes in the platform channel test interface.
+
+## 3.6.1
+
+* Updated `meta` dependency to version `^1.3.0`.
+* Updated documentation for the `locationAlways` permission
+
+## 3.6.0
+
+* Add support for iOS Critical alerts and Android Access Notification Policy.
+
+## 3.5.1
+
+* Updated API documentation for the `PermissionStatus.permanentlyDenied` status.
+
+## 3.5.0
+
+* Added support for app tracking transparency permission.
+
+## 3.4.0
+
+* Added support request install packages permission.
+
 ## 3.3.0
 
 * Added support for system alert window permission.

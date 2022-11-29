@@ -1,3 +1,151 @@
+## 10.2.0
+
+* Added support for the new Android 13 permissions: SCHEDULE_EXACT_ALARM, READ_MEDIA_IMAGES, READ_MEDIA_VIDEO and READ_MEDIA_AUDIO
+
+## 10.1.0
+
+* Added support for the new Android 13 permission: NEARBY_WIFI_DEVICES.
+
+## 10.0.2
+
+* Adds a link to the issue tracker which shows up as "View/report issues" on pub.dev.
+
+## 10.0.1
+
+- Fix PermissionHandlerEnums link in the README.md
+
+## 10.0.0
+
+* __BREAKING CHANGE__: Updated Android `compileSdkVersion` to `33` to handle the new `POST_NOTIFICATIONS` permission.
+> When updating to version 10.0.0 make sure to update the `android/app/build.gradle` file and set the `compileSdkVersion` to `33`.
+
+## 9.2.0
+
+* Federated permission_handler_windows for the Windows version.
+
+## 9.1.0
+
+* Moved out Android and iOS implementations into their own packages.
+
+## 9.0.2
+
+* Fixes regression when requesting 'locationAlways' permission on Andriod 9 (Pie) and earlier.
+
+## 9.0.1
+
+* Fixes bug when requesting `locationAlways` permissions on Android.
+* Solves a compilation error when building the example App on Android.
+
+## 9.0.0
+
+* iOS: Bluetooth permission dialog now appears when requested instead of when the app is initialized.
+Note: Requesting Bluetooth status will also prompt the permission dialog (see issue [#591](https://github.com/Baseflow/flutter-permission-handler/issues/591)).
+
+## 8.3.0
+
+* Updated Android Gradle Plugin to 4.1.0 and Gradle Wrapper to 6.7 which is inline with the current Flutter stable version (Flutter 2.5.3).
+
+## 8.2.6
+
+* Fixed broken androidx migration link in the README.md.
+
+## 8.2.5
+
+* Fixed broken link in the README.md.
+
+## 8.2.4
+
+* Solved bug where output would log that there is no permission in manifest for BLUETOOTH_SCAN, BLUETOOTH_ADVERTISE and BLUETOOTH_CONNECT on Android 11 devices and lower(see issue [#691](https://github.com/Baseflow/flutter-permission-handler/issues/691)).
+
+## 8.2.3
+
+* iOS: Enhanced the `bluetooth` permission for iOS 13 and up, so the user gets prompted with the "bluetooth" permission dialog (see issue [#591](https://github.com/Baseflow/flutter-permission-handler/issues/591)).
+
+## 8.2.2
+
+* Updated the README.md to mention setting the `compileSdkVersion` to `31`;
+* Added an additional note to version 8.2.0 release notes to inform people to update the `compileSdkVersion`.
+
+## 8.2.1
+
+* Resolved an issue where checking permissions on pre Android M devices always resolved to `PermissionStatus.denied` (see issue [#60](https://github.com/Baseflow/flutter-permission-plugins/issues/60));
+* Updated the url_launcher dependency in the example App to `^6.0.12`.
+
+## 8.2.0
+
+> **IMPORTANT:** when updating to version 8.2.0 make sure to also set the `compileSdkVersion` in the `app/build.gradle` file to `31`.
+
+* Added support for the new Android 12 Bluetooth permissions: BLUETOOTH_SCAN, BLUETOOTH_ADVERTISE and BLUETOOTH_CONNECT.
+* Updated Android compile and target SDK to 31 (Android 12 (S)).
+* Updated Gradle and dependencies of Android project.
+* Updated applicationID of example app
+
+## 8.1.6
+
+* Android: Fixed a `NullPointerException` when changing permissions in the Location Settings intent.
+
+## 8.1.5
+* Android: Fixed deprecation warnings/errors when `compileSdkVersion` was set to 31 (Android S/12).
+
+## 8.1.4+2
+
+* iOS: fixed memory error that occurred on iOS 12.2 and below (see issue [#638](https://github.com/Baseflow/flutter-permission-handler/issues/638)).
+
+## 8.1.4+1
+
+* Fix a bug where after allowing the `location` permission and requesting it again would lead to a memory error.
+
+## 8.1.4
+
+* Fix bug where requesting `locationAlways` permission sometimes returns `PermissionStatus.Denied` instead of `PermissionStatus.Granted`.
+
+## 8.1.3
+
+* Fix bug where `locationAlways` returns `PermanentlyDenied`;
+* Updated the `README.md` for requesting the `locationAlways` permission the correct way.
+
+## 8.1.2
+
+* Suppress deprecation warnings on iOS for code that specifically targets older iOS versions (see issue [#607](https://github.com/Baseflow/flutter-permission-handler/issues/607)). 
+
+## 8.1.1
+
+* Fixed deprecation issue when checking phone capabilities on iOS (see issue [#597](https://github.com/Baseflow/flutter-permission-handler/issues/597)).
+
+## 8.1.0
+
+* Added support for iOS 12+ Critical Alerts permission requesting.
+    * NOTE: This requires applying to Apple and receiving a special entitlement from them inorder to work. See [this article](https://medium.com/@shashidharyamsani/implementing-ios-critical-alerts-7d82b4bb5026) for an explination on how to use Critical Alerts.
+* Added support for Android M+ Access Notification Policy permission requesting (ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS).
+    * Note: This opens a general page in settings, not specific to the package. 
+
+## 8.0.1
+
+* Updated API documentation for the `PermissionStatus.permanentlyDenied` status.
+
+## 8.0.0+2
+
+* Fix broken Podfile link noted at `8.0.0`.
+* Fix the information link noted at [Podfile](permission_handler/example/ios/Podfile).
+
+## 8.0.0+1
+
+* Updated the README.md setup section about the Podfile and changed a minor spelling mistake.
+
+## 8.0.0
+
+This release contains the following **breaking changes**: 
+* Starting from this version the permissions on iOS are disabled by default. To enable a permission, specify the correct `GCC_PREPROCESSOR_DEFINITIONS` in the `ios/Podfile` file. For an example check out the [Podfile](permission_handler/example/ios/Podfile) of the example application. 
+* Added support for the "AppTrackingTransparency" permission on iOS.
+
+## 7.2.0
+
+* Added support for the "REQUEST_INSTALL_PACKAGES" permission on Android.
+
+## 7.1.1
+
+* Improved the example app by using the Baseflow Plugin Template and move all the functionality to the `main.dart` file.
+
 ## 7.1.0
 
 * Added support for the "SYSTEM_ALERT_WINDOW" permission on Android.

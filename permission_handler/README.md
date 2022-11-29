@@ -1,4 +1,4 @@
-[![pub package](https://img.shields.io/pub/v/permission_handler.svg)](https://pub.dartlang.org/packages/permission_handler) [![Build status](https://github.com/Baseflow/flutter-permission-handler/actions/workflows/app_facing_package.yaml/badge.svg?branch=master)](https://github.com/Baseflow/flutter-permission-handler/actions/workflows/app_facing_package.yaml) [![style: effective dart](https://img.shields.io/badge/style-effective_dart-40c4ff.svg)](https://github.com/tenhobi/effective_dart) [![codecov](https://codecov.io/gh/Baseflow/flutter-permission-handler/branch/master/graph/badge.svg)](https://codecov.io/gh/Baseflow/flutter-permission-handler)
+[![pub package](https://img.shields.io/pub/v/permission_handler.svg)](https://pub.dartlang.org/packages/permission_handler) [![Build status](https://github.com/Baseflow/flutter-permission-handler/actions/workflows/permission_handler.yaml/badge.svg?branch=master)](https://github.com/Baseflow/flutter-permission-handler/actions/workflows/permission_handler.yaml) [![style: effective dart](https://img.shields.io/badge/style-effective_dart-40c4ff.svg)](https://github.com/tenhobi/effective_dart) [![codecov](https://codecov.io/gh/Baseflow/flutter-permission-handler/branch/master/graph/badge.svg)](https://codecov.io/gh/Baseflow/flutter-permission-handler)
 
 On most operating systems, permissions aren't just granted to apps at install time.
 Rather, developers have to ask the user for permissions while the app is running.
@@ -23,24 +23,29 @@ Since version 4.4.0 this plugin is implemented using the Flutter 1.12 Android pl
 As of version 3.1.0 the <kbd>permission_handler</kbd> plugin switched to the AndroidX version of the Android Support Libraries. This means you need to make sure your Android project is also upgraded to support AndroidX. Detailed instructions can be found [here](https://flutter.dev/docs/development/packages-and-plugins/androidx-compatibility).
 
 The TL;DR version is:
+
 1. Add the following to your "gradle.properties" file:
-```
+
+```properties
 android.useAndroidX=true
 android.enableJetifier=true
 ```
-2. Make sure you set the `compileSdkVersion` in your "android/app/build.gradle" file to 28:
-```
+
+1. Make sure you set the `compileSdkVersion` in your "android/app/build.gradle" file to 33:
+
+```gradle
 android {
-  compileSdkVersion 28
+  compileSdkVersion 33
   ...
 }
 ```
-3. Make sure you replace all the `android.` dependencies to their AndroidX counterparts (a full list can be found here: https://developer.android.com/jetpack/androidx/migrate).
+
+1. Make sure you replace all the `android.` dependencies to their AndroidX counterparts (a full list can be found [here](https://developer.android.com/jetpack/androidx/migrate)).
 
 Add permissions to your `AndroidManifest.xml` file.
 There's a `debug`, `main` and `profile` version which are chosen depending on how you start your app.
 In general, it's sufficient to add permission only to the `main` version.
-[Here](https://github.com/Baseflow/flutter-permission-handler/blob/develop/permission_handler/example/android/app/src/main/AndroidManifest.xml)'s an example `AndroidManifest.xml` with a complete list of all possible permissions.
+[Here](https://github.com/Baseflow/flutter-permission-handler/blob/master/permission_handler/example/android/app/src/main/AndroidManifest.xml)'s an example `AndroidManifest.xml` with a complete list of all possible permissions.
 
 </details>
 
@@ -48,94 +53,113 @@ In general, it's sufficient to add permission only to the `main` version.
 <summary>iOS</summary>
 
 Add permission to your `Info.plist` file.
-[Here](https://github.com/Baseflow/flutter-permission-handler/blob/develop/permission_handler/example/ios/Runner/Info.plist)'s an example `Info.plist` with a complete list of all possible permissions.
+[Here](https://github.com/Baseflow/flutter-permission-handler/blob/master/permission_handler/example/ios/Runner/Info.plist)'s an example `Info.plist` with a complete list of all possible permissions.
 
-> IMPORTANT: ~~You will have to include all permission options when you want to submit your App.~~ This is because the `permission_handler` plugin touches all different SDKs and because the static code analyser (run by Apple upon App submission) detects this and will assert if it cannot find a matching permission option in the `Info.plist`. More information about this can be found [here](https://github.com/BaseflowIT/flutter-permission-handler/issues/26).
+> IMPORTANT: ~~You will have to include all permission options when you want to submit your App.~~ This is because the `permission_handler` plugin touches all different SDKs and because the static code analyser (run by Apple upon App submission) detects this and will assert if it cannot find a matching permission option in the `Info.plist`. More information about this can be found [here](https://github.com/Baseflow/flutter-permission-handler/issues/26).
 
-The <kbd>permission_handler</kbd> plugin use [macros](https://github.com/BaseflowIT/flutter-permission-handler/blob/develop/permission_handler/ios/Classes/PermissionHandlerEnums.h) to control whether a permission is supported.
+The <kbd>permission_handler</kbd> plugin use [macros](https://github.com/Baseflow/flutter-permission-handler/blob/master/permission_handler_apple/ios/Classes/PermissionHandlerEnums.h) to control whether a permission is enabled.
 
-You can remove permissions you don't use:
+You must list permission you want to use in your application :
 
 1. Add the following to your `Podfile` file:
+
    ```ruby
    post_install do |installer|
      installer.pods_project.targets.each do |target|
+       ... # Here are some configurations automatically generated by flutter
+  
+       # Start of the permission_handler configuration
        target.build_configurations.each do |config|
-         ... # Here are some configurations automatically generated by flutter
    
-         # You can remove unused permissions here
-         # for more infomation: https://github.com/BaseflowIT/flutter-permission-handler/blob/develop/permission_handler/ios/Classes/PermissionHandlerEnums.h
-         # e.g. when you don't need camera permission, just add 'PERMISSION_CAMERA=0'
+         # You can enable the permissions needed here. For example to enable camera
+         # permission, just remove the `#` character in front so it looks like this:
+         #
+         # ## dart: PermissionGroup.camera
+         # 'PERMISSION_CAMERA=1'
+         #
+         #  Preprocessor definitions can be found in: https://github.com/Baseflow/flutter-permission-handler/blob/master/permission_handler_apple/ios/Classes/PermissionHandlerEnums.h
          config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
            '$(inherited)',
   
            ## dart: PermissionGroup.calendar
-           # 'PERMISSION_EVENTS=0',
+           # 'PERMISSION_EVENTS=1',
   
            ## dart: PermissionGroup.reminders
-           # 'PERMISSION_REMINDERS=0',
+           # 'PERMISSION_REMINDERS=1',
   
            ## dart: PermissionGroup.contacts
-           # 'PERMISSION_CONTACTS=0',
+           # 'PERMISSION_CONTACTS=1',
   
            ## dart: PermissionGroup.camera
-           # 'PERMISSION_CAMERA=0',
+           # 'PERMISSION_CAMERA=1',
   
            ## dart: PermissionGroup.microphone
-           # 'PERMISSION_MICROPHONE=0',
+           # 'PERMISSION_MICROPHONE=1',
   
            ## dart: PermissionGroup.speech
-           # 'PERMISSION_SPEECH_RECOGNIZER=0',
+           # 'PERMISSION_SPEECH_RECOGNIZER=1',
   
            ## dart: PermissionGroup.photos
-           # 'PERMISSION_PHOTOS=0',
+           # 'PERMISSION_PHOTOS=1',
   
            ## dart: [PermissionGroup.location, PermissionGroup.locationAlways, PermissionGroup.locationWhenInUse]
-           # 'PERMISSION_LOCATION=0',
+           # 'PERMISSION_LOCATION=1',
           
            ## dart: PermissionGroup.notification
-           # 'PERMISSION_NOTIFICATIONS=0',
+           # 'PERMISSION_NOTIFICATIONS=1',
   
            ## dart: PermissionGroup.mediaLibrary
-           # 'PERMISSION_MEDIA_LIBRARY=0',
+           # 'PERMISSION_MEDIA_LIBRARY=1',
   
            ## dart: PermissionGroup.sensors
-           # 'PERMISSION_SENSORS=0',   
+           # 'PERMISSION_SENSORS=1',   
            
            ## dart: PermissionGroup.bluetooth
-           # 'PERMISSION_BLUETOOTH=0'
+           # 'PERMISSION_BLUETOOTH=1',
+   
+           ## dart: PermissionGroup.appTrackingTransparency
+           # 'PERMISSION_APP_TRACKING_TRANSPARENCY=1',
+   
+           ## dart: PermissionGroup.criticalAlerts
+           # 'PERMISSION_CRITICAL_ALERTS=1'
          ]
   
-       end
+       end 
+       # End of the permission_handler configuration
      end
    end
    ```
-2. Remove the `#` character in front of the permission you do not want to use. For example if you don't need access to the calendar make sure the code looks like this:
+
+2. Remove the `#` character in front of the permission you do want to use. For example if you need access to the calendar make sure the code looks like this:
+
    ```ruby
            ## dart: PermissionGroup.calendar
-           'PERMISSION_EVENTS=0',
+           'PERMISSION_EVENTS=1',
    ```
+
 3. Delete the corresponding permission description in `Info.plist`
    e.g. when you don't need camera permission, just delete 'NSCameraUsageDescription'
    The following lists the relationship between `Permission` and `The key of Info.plist`:
-   | Permission                                                                                  | Info.plist                                                                                                    | Macro                        |
-   | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ---------------------------- |
-   | PermissionGroup.calendar                                                                    | NSCalendarsUsageDescription                                                                                   | PERMISSION_EVENTS            |
-   | PermissionGroup.reminders                                                                   | NSRemindersUsageDescription                                                                                   | PERMISSION_REMINDERS         |
-   | PermissionGroup.contacts                                                                    | NSContactsUsageDescription                                                                                    | PERMISSION_CONTACTS          |
-   | PermissionGroup.camera                                                                      | NSCameraUsageDescription                                                                                      | PERMISSION_CAMERA            |
-   | PermissionGroup.microphone                                                                  | NSMicrophoneUsageDescription                                                                                  | PERMISSION_MICROPHONE        |
-   | PermissionGroup.speech                                                                      | NSSpeechRecognitionUsageDescription                                                                           | PERMISSION_SPEECH_RECOGNIZER |
-   | PermissionGroup.photos                                                                      | NSPhotoLibraryUsageDescription                                                                                | PERMISSION_PHOTOS            |
-   | PermissionGroup.location, PermissionGroup.locationAlways, PermissionGroup.locationWhenInUse | NSLocationUsageDescription, NSLocationAlwaysAndWhenInUseUsageDescription, NSLocationWhenInUseUsageDescription | PERMISSION_LOCATION          |
-   | PermissionGroup.notification                                                                | PermissionGroupNotification                                                                                   | PERMISSION_NOTIFICATIONS     |
-   | PermissionGroup.mediaLibrary                                                                | NSAppleMusicUsageDescription, kTCCServiceMediaLibrary                                                         | PERMISSION_MEDIA_LIBRARY     |
-   | PermissionGroup.sensors                                                                     | NSMotionUsageDescription                                                                                      | PERMISSION_SENSORS           |
+
+   | Permission                                                                                  | Info.plist                                                                                                    | Macro                                |
+   | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+   | PermissionGroup.calendar                                                                    | NSCalendarsUsageDescription                                                                                   | PERMISSION_EVENTS                    |
+   | PermissionGroup.reminders                                                                   | NSRemindersUsageDescription                                                                                   | PERMISSION_REMINDERS                 |
+   | PermissionGroup.contacts                                                                    | NSContactsUsageDescription                                                                                    | PERMISSION_CONTACTS                  |
+   | PermissionGroup.camera                                                                      | NSCameraUsageDescription                                                                                      | PERMISSION_CAMERA                    |
+   | PermissionGroup.microphone                                                                  | NSMicrophoneUsageDescription                                                                                  | PERMISSION_MICROPHONE                |
+   | PermissionGroup.speech                                                                      | NSSpeechRecognitionUsageDescription                                                                           | PERMISSION_SPEECH_RECOGNIZER         |
+   | PermissionGroup.photos                                                                      | NSPhotoLibraryUsageDescription                                                                                | PERMISSION_PHOTOS                    |
+   | PermissionGroup.location, PermissionGroup.locationAlways, PermissionGroup.locationWhenInUse | NSLocationUsageDescription, NSLocationAlwaysAndWhenInUseUsageDescription, NSLocationWhenInUseUsageDescription | PERMISSION_LOCATION                  |
+   | PermissionGroup.notification                                                                | PermissionGroupNotification                                                                                   | PERMISSION_NOTIFICATIONS             |
+   | PermissionGroup.mediaLibrary                                                                | NSAppleMusicUsageDescription, kTCCServiceMediaLibrary                                                         | PERMISSION_MEDIA_LIBRARY             |
+   | PermissionGroup.sensors                                                                     | NSMotionUsageDescription                                                                                      | PERMISSION_SENSORS                   |
+   | PermissionGroup.bluetooth                                                                   | NSBluetoothAlwaysUsageDescription, NSBluetoothPeripheralUsageDescription                                      | PERMISSION_BLUETOOTH                 |
+   | PermissionGroup.appTrackingTransparency                                                     | NSUserTrackingUsageDescription                                                                                | PERMISSION_APP_TRACKING_TRANSPARENCY |  
+   | PermissionGroup.criticalAlerts                                                              | PermissionGroupCriticalAlerts                                                                                 | PERMISSION_CRITICAL_ALERTS           |
 4. Clean & Rebuild
 
 </details>
-
-
 
 ## How to use
 
@@ -144,7 +168,7 @@ You can get a `Permission`'s `status`, which is either `granted`, `denied`, `res
 
 ```dart
 var status = await Permission.camera.status;
-if (status.denied) {
+if (status.isDenied) {
   // We didn't ask for permission yet or the permission has been denied before but not permanently.
 }
 
@@ -195,6 +219,26 @@ On Android, you can show a rationale for using a permission:
 ```dart
 bool isShown = await Permission.contacts.shouldShowRequestRationale;
 ```
+
+Some permissions will not show a dialog asking the user to allow or deny the requested permission.  
+This is because the OS setting(s) of the app are being retrieved for the corresponding permission.  
+The status of the setting will determine whether the permission is `granted` or `denied`.  
+
+The following permissions will show no dialog:  
+
+- Notification
+- Bluetooth
+
+The following permissions will show no dialog, but will open the corresponding setting intent for the user to change the permission status:  
+
+- manageExternalStorage
+- systemAlertWindow
+- requestInstallPackages
+- accessNotificationPolicy
+
+The `locationAlways` permission can not be requested directly, the user has to request the `locationWhenInUse` permission first.
+Accepting this permission by clicking on the 'Allow While Using App' gives the user the possibility to request the `locationAlways` permission.
+This will then bring up another permission popup asking you to `Keep Only While Using` or to `Change To Always Allow`.
 
 ## Issues
 
