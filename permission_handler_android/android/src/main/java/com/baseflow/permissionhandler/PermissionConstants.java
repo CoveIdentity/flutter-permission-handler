@@ -2,8 +2,10 @@ package com.baseflow.permissionhandler;
 
 import androidx.annotation.IntDef;
 
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 final class PermissionConstants {
     static final String LOG_TAG = "permissions_handler";
@@ -13,6 +15,7 @@ final class PermissionConstants {
     static final int PERMISSION_CODE_SYSTEM_ALERT_WINDOW = 211;
     static final int PERMISSION_CODE_REQUEST_INSTALL_PACKAGES = 212;
     static final int PERMISSION_CODE_ACCESS_NOTIFICATION_POLICY = 213;
+    static final int PERMISSION_CODE_SCHEDULE_EXACT_ALARM = 214;
 
     //PERMISSION_GROUP
     static final int PERMISSION_GROUP_CALENDAR = 0;
@@ -50,6 +53,7 @@ final class PermissionConstants {
     static final int PERMISSION_GROUP_VIDEOS = 32;
     static final int PERMISSION_GROUP_AUDIO = 33;
     static final int PERMISSION_GROUP_SCHEDULE_EXACT_ALARM = 34;
+    static final int PERMISSION_GROUP_SENSORS_ALWAYS = 35;
 
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({
@@ -65,6 +69,7 @@ final class PermissionConstants {
             PERMISSION_GROUP_PHOTOS,
             PERMISSION_GROUP_REMINDERS,
             PERMISSION_GROUP_SENSORS,
+            PERMISSION_GROUP_SENSORS_ALWAYS,
             PERMISSION_GROUP_SMS,
             PERMISSION_GROUP_SPEECH,
             PERMISSION_GROUP_STORAGE,
@@ -96,6 +101,7 @@ final class PermissionConstants {
     static final int PERMISSION_STATUS_LIMITED = 3;
     static final int PERMISSION_STATUS_NEVER_ASK_AGAIN = 4;
 
+    @Target(ElementType.TYPE_USE)
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({
             PERMISSION_STATUS_DENIED,

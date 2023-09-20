@@ -36,8 +36,8 @@ class _PermissionHandlerWidgetState extends State<PermissionHandlerWidget> {
           children: Permission.values
               .where((permission) {
                 return permission != Permission.unknown &&
+                    permission != Permission.phone &&
                     permission != Permission.sms &&
-                    permission != Permission.storage &&
                     permission != Permission.ignoreBatteryOptimizations &&
                     permission != Permission.accessMediaLocation &&
                     permission != Permission.activityRecognition &&
@@ -47,7 +47,12 @@ class _PermissionHandlerWidgetState extends State<PermissionHandlerWidget> {
                     permission != Permission.accessNotificationPolicy &&
                     permission != Permission.bluetoothScan &&
                     permission != Permission.bluetoothAdvertise &&
-                    permission != Permission.bluetoothConnect;
+                    permission != Permission.bluetoothConnect &&
+                    permission != Permission.nearbyWifiDevices &&
+                    permission != Permission.videos &&
+                    permission != Permission.audio &&
+                    permission != Permission.scheduleExactAlarm &&
+                    permission != Permission.sensorsAlways;
               })
               .map((permission) => PermissionWidget(permission))
               .toList()),
@@ -63,7 +68,7 @@ class PermissionWidget extends StatefulWidget {
   final Permission _permission;
 
   @override
-  _PermissionState createState() => _PermissionState(_permission);
+  State<PermissionWidget> createState() => _PermissionState(_permission);
 }
 
 class _PermissionState extends State<PermissionWidget> {
@@ -104,7 +109,7 @@ class _PermissionState extends State<PermissionWidget> {
     return ListTile(
       title: Text(
         _permission.toString(),
-        style: Theme.of(context).textTheme.bodyText1,
+        style: Theme.of(context).textTheme.bodyLarge,
       ),
       subtitle: Text(
         _permissionStatus.toString(),

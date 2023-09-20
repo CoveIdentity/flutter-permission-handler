@@ -37,9 +37,9 @@ class _PermissionHandlerWidgetState extends State<PermissionHandlerWidget> {
               .where((permission) {
                 return permission != Permission.unknown &&
                     permission != Permission.mediaLibrary &&
-                    permission != Permission.photos &&
                     permission != Permission.photosAddOnly &&
                     permission != Permission.reminders &&
+                    permission != Permission.bluetooth &&
                     permission != Permission.appTrackingTransparency &&
                     permission != Permission.criticalAlerts;
               })
@@ -98,7 +98,7 @@ class _PermissionState extends State<PermissionWidget> {
     return ListTile(
       title: Text(
         _permission.toString(),
-        style: Theme.of(context).textTheme.bodyText1,
+        style: Theme.of(context).textTheme.bodyLarge,
       ),
       subtitle: Text(
         _permissionStatus.toString(),
