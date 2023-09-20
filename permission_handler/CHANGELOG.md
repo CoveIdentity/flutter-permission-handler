@@ -1,3 +1,44 @@
+## 11.0.0
+
+* **BREAKING CHANGE:** Updates `permission_handler_android` dependency to version 11.0.0.
+* Updates `permission_handler_apple` dependency to version 9.1.4.
+* Updates `permission_handler_platform_interface` dependency to version 3.11.5.
+
+## 10.4.5
+
+* Updates the mentions of Android versions in the README, now following a format of 'Android {name} (API {number})'. For example: 'Android 13 (API 33)'.
+
+## 10.4.4
+
+* Adds a section to the [FAQ](https://pub.dev/packages/permission_handler#faq) clarifying how to request background location permission on Android 10+ (API 29+).
+
+## 10.4.3
+
+* Updates example app to show relevant permissions on Android and iOS platforms.
+* Updates the documentation for the `Permission.bluetooth` permission regarding the limitations of the permission on iOS.
+
+## 10.4.2
+
+* Adds a [FAQ](https://pub.dev/packages/permission_handler#faq) section to the README.md file.
+
+## 10.4.1
+
+* Updates AndroidManifest documentation in the example application with regards
+  to the use of READ_EXTERNAL_STORAGE, READ_MEDIA_IMAGES, READ_MEDIA_VIDEO and
+  READ_MEDIA_AUDIO permissions.
+
+## 10.4.0
+
+* Adds support for the new Android 13 permission: BODY_SENSORS_BACKGROUND.
+
+## 10.3.0
+
+* Adds support for the "Provisional" permission status introduced with iOS 12+.
+
+## 10.2.1
+
+* Fixes missing POST_NOTIFICATIONS permission in Android example project.
+  
 ## 10.2.0
 
 * Added support for the new Android 13 permissions: SCHEDULE_EXACT_ALARM, READ_MEDIA_IMAGES, READ_MEDIA_VIDEO and READ_MEDIA_AUDIO

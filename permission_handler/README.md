@@ -7,6 +7,8 @@ This plugin provides a cross-platform (iOS, Android) API to request permissions 
 You can also open the device's app settings so users can grant a permission.  
 On Android, you can show a rationale for requesting a permission.
 
+See the [FAQ](#faq) section for more information on common questions when using the permission_handler plugin.
+
 ## Setup
 
 While the permissions are being requested during runtime, you'll still need to tell the OS which permissions your app might potentially use. That requires adding permission configuration to Android- and iOS-specific files.
@@ -31,7 +33,7 @@ android.useAndroidX=true
 android.enableJetifier=true
 ```
 
-1. Make sure you set the `compileSdkVersion` in your "android/app/build.gradle" file to 33:
+2. Make sure you set the `compileSdkVersion` in your "android/app/build.gradle" file to 33:
 
 ```gradle
 android {
@@ -40,7 +42,7 @@ android {
 }
 ```
 
-1. Make sure you replace all the `android.` dependencies to their AndroidX counterparts (a full list can be found [here](https://developer.android.com/jetpack/androidx/migrate)).
+3. Make sure you replace all the `android.` dependencies to their AndroidX counterparts (a full list can be found [here](https://developer.android.com/jetpack/androidx/migrate)).
 
 Add permissions to your `AndroidManifest.xml` file.
 There's a `debug`, `main` and `profile` version which are chosen depending on how you start your app.
@@ -59,7 +61,7 @@ Add permission to your `Info.plist` file.
 
 The <kbd>permission_handler</kbd> plugin use [macros](https://github.com/Baseflow/flutter-permission-handler/blob/master/permission_handler_apple/ios/Classes/PermissionHandlerEnums.h) to control whether a permission is enabled.
 
-You must list permission you want to use in your application :
+You must list permission you want to use in your application:
 
 1. Add the following to your `Podfile` file:
 
@@ -164,12 +166,12 @@ You must list permission you want to use in your application :
 ## How to use
 
 There are a number of [`Permission`](https://pub.dev/documentation/permission_handler_platform_interface/latest/permission_handler_platform_interface/Permission-class.html#constants)s.
-You can get a `Permission`'s `status`, which is either `granted`, `denied`, `restricted` or `permanentlyDenied`.
+You can get a `Permission`'s `status`, which is either `granted`, `denied`, `restricted`, `permanentlyDenied`, `limited`, or `provisional`.
 
 ```dart
 var status = await Permission.camera.status;
 if (status.isDenied) {
-  // We didn't ask for permission yet or the permission has been denied before but not permanently.
+  // We didn't ask for permission yet or the permission has been denied before, but not permanently.
 }
 
 // You can can also directly ask the permission about its status.
@@ -239,6 +241,20 @@ The following permissions will show no dialog, but will open the corresponding s
 The `locationAlways` permission can not be requested directly, the user has to request the `locationWhenInUse` permission first.
 Accepting this permission by clicking on the 'Allow While Using App' gives the user the possibility to request the `locationAlways` permission.
 This will then bring up another permission popup asking you to `Keep Only While Using` or to `Change To Always Allow`.
+
+## FAQ
+
+### Requesting "storage" permissions always returns "denied" on Android 13+. What can I do?
+
+On Android the `Permission.storage` permission is linked to the Android `READ_EXTERNAL_STORAGE` and `WRITE_EXTERNAL_STORAGE` permissions. Starting from Android 10 (API 29) the `READ_EXTERNAL_STORAGE` and `WRITE_EXTERNAL_STORAGE` permissions have been marked deprecated and have been fully removed/disabled since Android 13 (API 33).
+
+If your application needs access to media files Google recommends using the `READ_MEDIA_IMAGES`, `READ_MEDIA_VIDEOS` or `READ_MEDIA_AUDIO` permissions instead. These can be requested using the `Permission.photos`, `Permission.videos` and `Permission.audio` respectively. To request these permissions make sure the `compileSdkVersion` in the `android/app/build.gradle` file is set to `33`.
+
+If your application needs access to Android's file system, it is possible to request the `MANAGE_EXTERNAL_STORAGE` permission (using `Permission.manageExternalStorage`). As of Android 11 (API 30), the `MANAGE_EXTERNAL_STORAGE` permission is considered a high-risk or sensitive permission. Therefore it is required to [declare the use of these permissions](https://support.google.com/googleplay/android-developer/answer/9214102) if you intend to release the application via the Google Play Store.
+
+### Requesting `Permission.locationAlways` always returns "denied" on Android 10+ (API 29+). What can I do?
+
+Starting with Android 10, apps are required to first obtain the permission to read the device's location in the foreground, before requesting to read the location in the background as well. When requesting for the 'location always' permission directly, or when requesting both permissions at the same time, the system will ignore the request. So, instead of calling only `Permission.location.request()`, make sure to first call either `Permission.location.request()` or `Permission.locationWhenInUse.request()`, and obtain permission to read the GPS. Once you obtain this permission, you can call `Permission.locationAlways.request()`. This will present the user with the option to update the settings so the location can always be read in the background. For more information, visit the [Android documentation on requesting location permissions](https://developer.android.com/training/location/permissions#request-only-foreground).
 
 ## Issues
 
