@@ -101,14 +101,14 @@
             return [AudioVideoPermissionStrategy new];
         case PermissionGroupContacts:
             return [ContactPermissionStrategy new];
-        case PermissionGroupLocation:
-        case PermissionGroupLocationAlways:
-        case PermissionGroupLocationWhenInUse:
-            #if PERMISSION_LOCATION
-            return [[LocationPermissionStrategy alloc] initWithLocationManager];
-            #else
-            return [LocationPermissionStrategy new];
-            #endif
+        // case PermissionGroupLocation:
+        // case PermissionGroupLocationAlways:
+        // case PermissionGroupLocationWhenInUse:
+        //     #if PERMISSION_LOCATION
+        //     return [[LocationPermissionStrategy alloc] initWithLocationManager];
+        //     #else
+        //     return [LocationPermissionStrategy new];
+        //     #endif
          case PermissionGroupMicrophone:
             return [AudioVideoPermissionStrategy new];
         case PermissionGroupPhone:

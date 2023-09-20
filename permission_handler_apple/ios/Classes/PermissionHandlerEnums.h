@@ -45,9 +45,9 @@
 // ios: [PermissionGroupLocation, PermissionGroupLocationAlways, PermissionGroupLocationWhenInUse]
 // Info.plist: [NSLocationUsageDescription, NSLocationAlwaysAndWhenInUseUsageDescription, NSLocationWhenInUseUsageDescription]
 // dart: [PermissionGroup.location, PermissionGroup.locationAlways, PermissionGroup.locationWhenInUse]
-#ifndef PERMISSION_LOCATION
-    #define PERMISSION_LOCATION 0
-#endif
+// #ifndef PERMISSION_LOCATION
+//     #define PERMISSION_LOCATION 0
+// #endif
 
 // ios: PermissionGroupNotification
 // dart: PermissionGroup.notification
@@ -66,9 +66,9 @@ typedef NS_ENUM(int, PermissionGroup) {
     PermissionGroupCalendar = 0,
     PermissionGroupCamera,
     PermissionGroupContacts,
-    PermissionGroupLocation,
-    PermissionGroupLocationAlways,
-    PermissionGroupLocationWhenInUse,
+    // PermissionGroupLocation,
+    // PermissionGroupLocationAlways,
+    // PermissionGroupLocationWhenInUse,
     PermissionGroupMediaLibrary,
     PermissionGroupMicrophone,
     PermissionGroupPhone,
@@ -81,7 +81,7 @@ typedef NS_ENUM(int, PermissionGroup) {
     PermissionGroupStorage,
     PermissionGroupIgnoreBatteryOptimizations,
     PermissionGroupNotification,
-    PermissionGroupAccessMediaLocation,
+    // PermissionGroupAccessMediaLocation,
     PermissionGroupActivityRecognition,
     PermissionGroupUnknown,
     PermissionGroupBluetooth,
